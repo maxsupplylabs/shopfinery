@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/page.jsx",
+    "app/layout.tsx",
+    "app/products/men/page.jsx",
+    "app/signup/page.jsx",
+    "app/context/EditingContext.js",
+    "components/edit/UserProfile.jsx",
+    "components/edit/Links.jsx"
+, "app/[username]/edit/page.jsx", "components/navTabLinks.jsx", "components/edit/Bookings.jsx", "app/components/ui/alert-dialog.tsx", "components/username-components/profile.jsx", "components/tabs/promo.jsx", "app/jo/layout.jsx", "components/ui/separator.jsx", "app/admin/collections/page.jsx", "components/admin/add-products-form.component.jsx", "context/Business-Product-Edit.js"  ],
+  "exclude": ["node_modules"]
+}
