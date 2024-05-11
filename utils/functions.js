@@ -1474,6 +1474,29 @@ export const getDocumentByFieldValue = async (collectionName, field, value) => {
   }
 };
 
+/**This function returns 10 of documents in a specified collections */
+export const getTop10Collections = async () => {
+  try {
+    const q = query(
+      collection(db, 'collections'),
+      orderBy("views", "desc"), // Order by views in descending order
+      limit(10) // Limit the result to the top collections
+    );
+
+    const querySnapshot = await getDocs(q);
+    const topCollections = [];
+
+    querySnapshot.forEach((doc) => {
+      topCollections.push({ id: doc.id, ...doc.data() });
+    });
+
+    return topCollections; // Array of top collections by views
+  } catch (error) {
+    console.error("Error fetching top collections by views:", error);
+    return null; // Error occurred
+  }
+};
+
 export const createUserDocumentFromAuth = async (userData, username) => {
   const { displayName, email, photoURL, uid } = userData;
   const userDocRef = doc(db, "users", username);
