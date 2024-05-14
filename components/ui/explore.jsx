@@ -183,16 +183,15 @@ export default function Explore() {
                     <p className="font-semibold text-[#000000]">
                       GHc{product.price}
                     </p>
-                    {product.market_price === 0 ||
-                      product.market_price === "0" || product.market_price === "" ? null : (
-                      <div className="flex justify-center items-center gap-1">
-                        <p className="text-xs text-black/40">
-                          <span className="line-through">
-                            GHc{product.market_price}
-                          </span>
-                        </p>
-                      </div>
-                    )}
+                    {product.market_price === 0 || isNaN(product.market_price) ? "" : (
+                                                <div className="flex justify-center items-center gap-1">
+                                                    <p className="text-xs text-black/40">
+                                                        <span className="line-through">
+                                                            GHc{product.market_price}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            )}
                   </div>
                 </div>
               </div>

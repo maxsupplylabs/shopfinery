@@ -197,9 +197,7 @@ export default function ProductDetails({ product }) {
                   <p className="font-bold text-[#000000]">GHc{product.price}</p>
                 </div>
 
-                {product.market_price === 0 ||
-                  product.market_price === "0" ||
-                  product.market_price === "" ? null : (
+                {product.market_price === 0 || isNaN(product.market_price) ? "" : (
                   <div className="flex justify-center items-center gap-2">
                     <span className="line-through text-black/40 text-xs block">
                       GHc{product.market_price}

@@ -191,9 +191,7 @@ export default function ProductsCard({ productsInCollection }) {
                     <p className="font-semibold text-[#000000]">
                       GHc{product.price}
                     </p>
-                    {product.market_price === 0 ||
-                    product.market_price === "0" ||
-                    product.market_price === "" ? null : (
+                    {product.market_price === 0 || isNaN(product.market_price) ? "" : (
                       <div className="flex justify-center items-center gap-1">
                         <p className="text-xs text-black/40">
                           <span className="line-through">
