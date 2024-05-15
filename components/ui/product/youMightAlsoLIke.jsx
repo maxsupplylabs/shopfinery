@@ -72,9 +72,14 @@ export default function YouMightAlsoLIke({ productsInCollection }) {
                       </div>
                     )}
               <div className="py-1 px-2 w-full flex flex-col items-start">
-                <h3 className="text-xs md:text-sm text-left">
-                  {limitString(product.name, 24)}
+                <h3 className="text-xs md:text-sm text-left line-clamp-1">
+                  {product.name}
                 </h3>
+                <div>
+                    <p className="text-orange-500 text-xs md:text-sm">
+                      {product.isAvailableInGhana ? `Available in Ghana` : "Pre-order"}
+                    </p>
+                </div>
                 <div className="flex flex-col w-full">
                   <div className="flex text-sm text-left items-center gap-2 justify-start mt-1">
                     <p className="font-semibold text-[#000000]">

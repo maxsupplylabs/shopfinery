@@ -176,18 +176,19 @@ export default function ProductDetails({ product }) {
             </div>
           )}
           <div className="md:hidden flex justify-center items-center rounded-b-sm bg-[#f7f7f7] w-full">
-            {product.isAvailableInGhana && (
-              <div className="px-4 text-center md:text-sm py-4">
+              <div className="px-4 text-center md:text-sm py-2">
                 {product.isAvailableInGhana ? (
                   <div>
-                    <h2 className="text-sm font-semibold">This item is available in Ghana</h2>
+                    <h2 className="text-sm font-semibold text-orange-500">Available in Ghana</h2>
                     <p className="text-xs">Order now for instant delivery</p>
                   </div>
                 ) : (
-                  ""
+                  <div>
+                    <h2 className="text-sm font-semibold text-orange-500">Pre-order</h2>
+                    {/* <p className="text-xs">We ship in 35 - 50 days</p> */}
+                  </div>
                 )}
               </div>
-            )}
           </div>
           <div className="w-full">
             <div>

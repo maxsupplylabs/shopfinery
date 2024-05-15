@@ -180,12 +180,10 @@ export default function ProductsCard({ productsInCollection }) {
                   {limitString(product.name, 24)}
                 </h3>
                 <div>
-                    {product.isAvailableInGhana && (
-                      <p className="text-orange-500 text-[10px] md:text-sm">
-                        {product.isAvailableInGhana ? `Available in Ghana` : null}
-                      </p>
-                    )}
-                  </div>
+                    <p className="text-orange-500 text-xs md:text-sm">
+                      {product.isAvailableInGhana ? `Available in Ghana` : "Pre-order"}
+                    </p>
+                </div>
                 <div className="flex flex-col w-full">
                   <div className="flex text-sm text-left items-center gap-2 justify-start">
                     <p className="font-semibold text-[#000000]">

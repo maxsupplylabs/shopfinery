@@ -32,6 +32,7 @@ export default function Explore() {
     if (tab) {
       setSelectedTabOnLoc(tab);
     }
+    // return null
   }, [searchParams]);
 
   const { products, isLoading, isError } = useAllProducts();
@@ -90,7 +91,7 @@ export default function Explore() {
     setSelectedTab(tabName);
     setCurrentPage(1); // Reset currentPage when switching tabs
         // Update the URL query parameter to reflect the selected tab
-        router.push(`/?xp_tab=${tabName}`, undefined, { shallow: true });
+        router.push(`/?xp_tab=${tabName}`, { scroll: false });
     };
   const tabs = [
     {
@@ -198,11 +199,9 @@ export default function Explore() {
                   {limitString(product.name, 24)}
                 </h3>
                 <div>
-                  {product.isAvailableInGhana && (
                     <p className="text-orange-500 text-xs md:text-sm">
-                      {product.isAvailableInGhana ? `Available in Ghana` : null}
+                      {product.isAvailableInGhana ? `Available in Ghana` : "Pre-order"}
                     </p>
-                  )}
                 </div>
                 <div className="flex flex-col w-full">
                   <div className="flex text-sm text-left items-center gap-2 justify-start">
