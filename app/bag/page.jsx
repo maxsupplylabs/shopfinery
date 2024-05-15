@@ -412,7 +412,7 @@ const Bag = () => {
                               }
                               setTimeout(
                                 () => (window.location.href = `${whatsappUrl}`),
-                                1500
+                                1000
                               );
                             }}
                             disabled={loading || !isInfoComplete}
