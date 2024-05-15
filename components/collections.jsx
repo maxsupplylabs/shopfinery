@@ -235,7 +235,7 @@ export default function Collections({ collections }) {
           {filteredCollections.length === 0 ? (
             <div className="flex flex-col justify-center min-h-[70vh] items-center mt-6">
               <p className="font-semibold">No collection found</p>
-              <p className="text-sm">
+              <p className="text-xs">
                 Updates coming soon...
               </p>
             </div>
