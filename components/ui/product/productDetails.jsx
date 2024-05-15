@@ -176,19 +176,19 @@ export default function ProductDetails({ product }) {
             </div>
           )}
           <div className="md:hidden flex justify-center items-center rounded-b-sm bg-[#f7f7f7] w-full">
-              <div className="px-4 text-center md:text-sm py-2">
-                {product.isAvailableInGhana ? (
-                  <div>
-                    <h2 className="text-sm font-semibold text-orange-500">Available in Ghana</h2>
-                    <p className="text-xs">Order now for instant delivery</p>
-                  </div>
-                ) : (
-                  <div>
-                    <h2 className="text-sm font-semibold text-orange-500">Pre-order</h2>
-                    {/* <p className="text-xs">We ship in 35 - 50 days</p> */}
-                  </div>
-                )}
-              </div>
+            <div className="px-4 text-center md:text-sm py-2">
+              {product.isAvailableInGhana ? (
+                <div>
+                  <h2 className="text-sm font-semibold text-orange-500">Available in Ghana</h2>
+                  <p className="text-xs">Order now for instant delivery</p>
+                </div>
+              ) : (
+                <div>
+                  <h2 className="text-sm font-semibold text-orange-500">Pre-order</h2>
+                  {/* <p className="text-xs">We ship in 35 - 50 days</p> */}
+                </div>
+              )}
+            </div>
           </div>
           <div className="w-full">
             <div>
@@ -231,24 +231,24 @@ export default function ProductDetails({ product }) {
                 selectedVariations,
                 handleVariationSelect
               )}
-              {product.variations.length !== 0 && <Separator className="my-4" />}
+            {product.variations.length !== 0 && <Separator className="my-4" />}
             {product.description !== "" && (
               <>
-              <div>
-                <strong className="text-sm">Description</strong>
-                <p className="text-sm">{product.description}The big brown fox jumps over the lazy dog...</p>
-              </div>
-              
-              <Separator className="my-4" />
+                <div>
+                  <strong className="text-sm">Description</strong>
+                  <p className="text-sm">{product.description}The big brown fox jumps over the lazy dog...</p>
+                </div>
+
+                <Separator className="my-4" />
               </>
             )}
-              <div>
-                <strong className="text-sm">Reviews</strong>
-                <div className="flex justify-center items-center">
+            <div>
+              <strong className="text-sm">Reviews</strong>
+              <div className="flex justify-center items-center">
                 <p className="text-sm">No reviews - yet</p>
-                </div>
               </div>
-              <Separator className="my-4" />
+            </div>
+            <Separator className="my-4" />
             <div className="flex flex-col bg-white justify-center items-center text-white mt-2 fixed md:static bottom-0 right-0 left-0 md:mx-0 z-50 px-2">
               <div className="bg- w-full flex flex-col justify-center items-center py-1">
                 {/* Rotating contents with conditional styling */}
