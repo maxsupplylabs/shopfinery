@@ -27,6 +27,15 @@ const SheetTrigger = SheetPrimitive.Trigger;
 
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { IoIosArrowForward } from "react-icons/io";
 
 import { FaWhatsapp } from "react-icons/fa";
 import {
@@ -38,7 +47,7 @@ import {
 } from "@/utils/functions";
 
 // Constants
-const WHATSAPP_NUMBER = "233592771234";
+const WHATSAPP_NUMBER = "233540610692";
 
 const generateOrderMessage = (items) => {
   return items
@@ -298,6 +307,21 @@ const Bag = () => {
   return (
     <div className="overflow-hidden">
       <div>
+      <Breadcrumb className="m-2">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <IoIosArrowForward className="text-sm" />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Product</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         {bagItems.length === 0 ? (
           <div>
             <div className="flex flex-col justify-center items-center h-[80vh] text-center mx-4">
@@ -316,8 +340,8 @@ const Bag = () => {
                 </h2>
               </div>
               <div className="flex flex-col justify-center text-center mx-4 text-xs">
-                <p>
-                  ...
+              <p>
+                Kindly remember to make momo payment to 0540610692 - Shani Sandah.
                 </p>
               </div>
               <div className="max-w-[90%] md:max-w-[35%] mx-auto my-3">
@@ -336,7 +360,7 @@ const Bag = () => {
                         <div className="flex flex-col items-center gap-4 mb-14 border-b">
                           <div className="flex flex-col gap-2 w-full">
                             <label htmlFor="name" className="font-semibold">
-                              Your name
+                              Your first name
                             </label>
                             <input
                               className="py-2 px-2 border border-gray-300 focus:border-black focus:border-1 rounded-lg"

@@ -712,6 +712,89 @@ export const fetchCollectionId = async (productId) => {
   }
 };
 
+export const fetchProductsWithOrders = async () => {
+
+  try {
+    // Perform query to fetch orders
+    const ordersQuerySnapshot = await getDocs(query(collection(db, 'orders')));
+
+    // Initialize an object to store products with their orders
+    const productsWithOrdersMap = {};
+
+    // Iterate through each order
+    ordersQuerySnapshot.forEach((orderDoc) => {
+      const orderData = orderDoc.data();
+
+      // Exclude orders where isAvailableInGhana is true
+      if (orderData.isAvailableInGhana) {
+        return;
+      }
+      
+      const productId = orderData.productId;
+
+      // Add order to the respective product's orders array
+      if (!productsWithOrdersMap[productId]) {
+        productsWithOrdersMap[productId] = [];
+      }
+      productsWithOrdersMap[productId].push(orderData);
+    });
+
+    // Convert the object to an array of products with orders
+    const productsWithOrdersArray = Object.entries(productsWithOrdersMap).map(([productId, orders]) => ({
+      productId: productId,
+      orders: orders
+    }));
+
+    return productsWithOrdersArray;
+  } catch (error) {
+    console.error("Error fetching products with orders:", error);
+    throw error; // Rethrow the error so the caller can handle it
+  }
+};
+
+export const fetchProductsWithMostOrders = async () => {
+  try {
+    // Perform query to fetch orders
+    const ordersQuerySnapshot = await getDocs(query(collection(db, 'orders')));
+
+    // Initialize an object to store products with their orders
+    const productsWithOrdersMap = {};
+
+    // Iterate through each order
+    ordersQuerySnapshot.forEach((orderDoc) => {
+      const orderData = orderDoc.data();
+
+      // Exclude orders where isAvailableInGhana is true
+      if (orderData.isAvailableInGhana) {
+        return;
+      }
+
+      const productId = orderData.productId;
+
+      // Add order to the respective product's orders array
+      if (!productsWithOrdersMap[productId]) {
+        productsWithOrdersMap[productId] = [];
+      }
+      productsWithOrdersMap[productId].push(orderData);
+    });
+
+    // Convert the object to an array of products with orders
+    const productsWithOrdersArray = Object.entries(productsWithOrdersMap).map(([productId, orders]) => ({
+      productId: productId,
+      orders: orders,
+      orderCount: orders.length // Add the order count
+    }));
+
+    // Sort products by order count in descending order and take the top 5
+    const topProducts = productsWithOrdersArray.sort((a, b) => b.orderCount - a.orderCount).slice(0, 5);
+
+    return topProducts;
+  } catch (error) {
+    console.error("Error fetching products with orders:", error);
+    throw error; // Rethrow the error so the caller can handle it
+  }
+};
+
 /**This function fetches the department ID for a given collection ID by querying the "collections" collection in Firestore. */
 export const fetchDepartmentId = async (collectionId) => {
   try {
@@ -1048,6 +1131,23 @@ export const getAllOrders = async () => {
   }
 }
 
+export async function fetchProduct(productId) {
+  try {
+    const docRef = doc(db, "products", productId);
+    const docSnap = await getDoc(docRef);
+
+    // Check if the document exists
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log("Document does not exist");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching document from Firestore:", error);
+    throw error;
+  }
+}
 
 export const getSubcollectionDocuments = (subcollectionName, callback) => {
   const collectionGroupRef = collectionGroup(db, subcollectionName);

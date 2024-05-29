@@ -35,7 +35,8 @@ export const StateContext = ({ children }) => {
       price: product.price,
       images: product.images[0],
       isFreeShipping: product.isFreeShipping,
-      moq: product.moq,
+      isAvailableInGhana: product.isAvailableInGhana,
+      moq: product.moq === 0 ? 1 : product.moq,
       variations,
       quantity: 1,
     };
@@ -149,116 +150,3 @@ export const StateContext = ({ children }) => {
 export const useStateContext = () => {
   return useContext(Context);
 };
-
-
-
-
-// function deepEqual(objA, objB) {
-//   if (objA === objB) {
-//     return true;
-//   }
-
-//   if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-//     return false;
-//   }
-
-//   const keysA = Object.keys(objA);
-//   const keysB = Object.keys(objB);
-
-//   if (keysA.length !== keysB.length) {
-//     return false;
-//   }
-
-//   for (let key of keysA) {
-//     if (!keysB.includes(key) || !deepEqual(objA[key], objB[key])) {
-//       return false;
-//     }
-//   }
-
-//   return true;
-// }
-
-// import { toast } from "react-hot-toast";
-
-// const [qty, setQty] = useState(1);
-// const [showBag, setShowBag] = useState(false);
-
-
-// showBag,
-//         setShowBag,
-// qty,
-        // incQty,
-        // decQty,
-        // onAdd,
-        // toggleBagItemQuantity,
-        // onRemove,
-// const onAdd = (product, quantity, color, size) => {
-//   const checkProductInBag = bagItems.find((item) => item.id === product.id);
-
-//   if (checkProductInBag) {
-//     const updatedBagItems = bagItems.map((bagProduct) => {
-//       if (bagProduct.id === product.id) {
-//         return {
-//           ...bagProduct,
-//           quantity: bagProduct.quantity + quantity,
-//           color,
-//           size,
-//         };
-//       }
-//       return bagProduct; // Return the original bagProduct when no update is needed
-//     });
-
-//     setBagItems(updatedBagItems);
-//   } else {
-//     const newItem = {
-//       ...product,
-//       quantity,
-//       color,
-//       size,
-//     };
-//     setBagItems([...bagItems, newItem]);
-//   }
-
-//   toast.success(`${qty} ${product.name} added to the bag.`);
-// };
-
-// const onRemove = (product) => {
-//   const newBagItems = bagItems.filter((item) => item.id !== product.id);
-
-//   const foundProduct = bagItems.find((item) => item.id === product.id);
-//   if (!foundProduct) return; // Return early if the product is not found
-
-//   setBagItems(newBagItems);
-// };
-
-// const toggleBagItemQuantity = (id, value) => {
-//   const updatedBagItems = bagItems.map((item) => {
-//     if (item.id === id) {
-//       if (value === "inc") {
-//         return {
-//           ...item,
-//           quantity: item.quantity + 1,
-//         };
-//       } else if (value === "dec" && item.quantity > 1) {
-//         return {
-//           ...item,
-//           quantity: item.quantity - 1,
-//         };
-//       }
-//     }
-//     return item;
-//   });
-
-//   setBagItems(updatedBagItems);
-// };
-
-// const incQty = () => {
-//   setQty((prevQty) => prevQty + 1);
-// };
-
-// const decQty = () => {
-//   setQty((prevQty) => {
-//     if (prevQty - 1 < 1) return 1;
-//     return prevQty - 1;
-//   });
-// };

@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { incrementProductViews } from "@/utils/functions";
 import { Separator } from "@/components/ui/separator";
+import { useAllCollections } from "@/hooks/useAllCollections";
 
 import {
   initializeUserInFirestore,
@@ -232,7 +233,7 @@ export default function Collections({ collections }) {
           </Sheet>
         </div>
         <div>
-          {filteredCollections.length === 0 ? (
+        {filteredCollections.length === 0 ? (
             <div className="flex flex-col justify-center min-h-[70vh] items-center mt-6">
               <p className="font-semibold">No collection found</p>
               <p className="text-xs">
@@ -248,30 +249,10 @@ export default function Collections({ collections }) {
                     className="flex flex-col gap-2 "
                     onClick={() =>
                       incrementProductViews("collections", collection.id)
-                    } // Call the function on click
+                    }
                   >
-                    <div className="px-2">
-                      {/* <div className="flex justify-between w-full gap-1 items-center">
-                        <h1 className="text-lg max-w-[14rem] font-semibold lg:mb-0 lg:mr-4">
-                          {collection.title}
-                        </h1>
-                      </div> */}
-                      <div>
-                        {/* <FaArrowRight className="text-lg" /> */}
-                        {/* {collection.views !== 0 ? (
-                        <p className="text-xs text-gray-400">
-                          <span className="text-orange-600">
-                            {collection.views}+
-                          </span>{" "}
-                          views in the past 30 days
-                        </p>
-                      ) : (
-                        ""
-                      )} */}
-                      </div>
-                    </div>
-                    {/* {collection.images.map((image, index) => ( */}
                     <div className="flex relativ flex-col justify-center items-center">
+                    {collection.images.length > 0 ? (
                       <div className="relative w-full pt-[100%]">
                         <Image
                           className="absolute w-full h-full top-0 left-0 object-cover rounded-full"
@@ -280,33 +261,25 @@ export default function Collections({ collections }) {
                           height={500}
                           alt=""
                         />
-                        {/* <div className="absolute bottom-0 left-0 right-0 mx-auto w-full md:max-w-fit md:px-6 rounded-lg text-[#FB7701] bg-[#FFF5EB]">
-                          <p className="text-center text-[0.70rem] font-medium">
-                            From GHc18
-                            
-                          </p>
-                        </div> */}
                       </div>
+                      ) : (
+                        <div className="relative w-full pt-[100%]">
+                          <Image
+                          className="absolute w-full h-full top-0 left-0 object-cover rounded-full"
+                          src={"/placeholder-image.jpeg"}
+                          width={500}
+                          height={500}
+                          alt=""
+                        />
+                        </div>
+                      )}
                     </div>
                     <div className="mt-0">
-                    <h3 className="text-center text-xs md:text-sm font-medium">
+                    <h3 className="text-center text-xs md:text-sm line-clamp-3 font-medium">
                       {collection.title}
                     </h3>
                   </div>
-                    {/* <div className="flex overflow-auto gap-2 md:flex-col pb-2 snap-x snap-mandatory hide-scrollbar">
-                      <Image
-                        className="w-full md:w-[35vw] h-full object-cover rounded-full"
-                        src={collection.images[0].src}
-                        width={500}
-                        height={500}
-                        alt=""
-                      />
-
-                  </div> */}
-                    {/* ))} */}
                   </Link>
-
-                  {/* <Separator className="text-[#f5f5f7] my-4" /> */}
                 </div>
               ))}
             </div>

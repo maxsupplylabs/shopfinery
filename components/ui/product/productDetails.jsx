@@ -6,18 +6,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "../separator";
 import {
-  calculateDiscountedPrice,
-  // renderVariations,
   handleAddToBagClick,
-  limitString,
   initializeUserInFirestore,
   updateUserInFirestore,
   incrementEnquiryNumber,
-  updateBrowserHistory,
 } from "@/utils/functions";
+import { useProduct } from "@/hooks/useProduct"
 import { RiShip2Line } from "react-icons/ri";
 
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { IoIosArrowForward } from "react-icons/io";
+
 import {
   Carousel,
   CarouselContent,
@@ -34,13 +40,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ProductImageCarousel } from "@/components/ui/product-image-carousel"
-
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 // Helper function to render product variations
 export const renderVariations = (
@@ -95,7 +94,8 @@ function CarouselDemo({ product }) {
   );
 }
 
-export default function ProductDetails({ product }) {
+export default function ProductDetails({ productId }) {
+
   const {
     bagItems,
     addToBag,
@@ -103,10 +103,7 @@ export default function ProductDetails({ product }) {
     setSelectedVariations,
     handleVariationSelect,
   } = useStateContext();
-
-  const [feedback, setFeedback] = useState(null);
-  const [shippingInfoFeedback, setShippingInfoFeedback] = useState(false);
-
+  const { product, isLoading, isError } = useProduct(productId)
   // Initial state for the identity
   const [identity, setIdentity] = useState(1);
 
@@ -121,18 +118,6 @@ export default function ProductDetails({ product }) {
     return () => clearInterval(interval);
   }, []); // Empty dependency array to run the effect only once on mount
 
-  const handleFeedback = (value) => {
-    // Set feedback in state
-    setFeedback(value);
-    setShippingInfoFeedback(true);
-
-    // Store feedback in local storage
-    localStorage.setItem("shippingInfoFeedback", value);
-  };
-
-  if (!product) {
-    return <p>Product not found</p>;
-  }
 
   const handleAddToBag = () => {
     handleAddToBagClick(addToBag, product, selectedVariations);
@@ -151,12 +136,48 @@ export default function ProductDetails({ product }) {
     }
   }, []); // Empty dependency array ensures the effect runs only once on mount
 
+  if (isLoading) {
+    return (
+      <div className="mt-3 px-2 md:hidden">
+        <div className="w-full px-2">
+          <div class="space-y-2 min-h-full w-full md:min-w-full">
+            <div class="h-[40vh] min-w-full bg-gray-300/20"></div>
+            <div class="h-[8vh] w-full rounded-lg bg-gray-300/40"></div>
+            <div class="space-y-3 p-2">
+              <div class="h-3 w-4/5 rounded-lg bg-gray-300/40"></div>
+              <div class="h-3 w-2/5 rounded-lg bg-gray-300/40"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+
+  if (isError) {
+    return <div>Error fetching product</div>
+  }
   return (
     <div>
       <div className="bg-white md:mb-0 md:max-w- md:m-aut px-2 container mx-auto">
         <div className="flex flex-col md:flex-row md:gap-16">
           {/* Desktop */}
           <CarouselDemo product={product} />
+          <Breadcrumb className="my-2">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <IoIosArrowForward className="text-sm" />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Product</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
           {/* Mobile */}
           <div className="flex sm:hidden overflow-auto gap-2 hide-scrollbar">
             <ProductImageCarousel
